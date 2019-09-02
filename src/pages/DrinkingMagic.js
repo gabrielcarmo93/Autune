@@ -30,6 +30,7 @@ class Magic extends Component {
 		louvor1: '',
 		louvor2: '',
 		posMensagem: '',
+		ceia: '',
 		ofertorio: '',
 		imageURI: null,
 		_ids: '',
@@ -42,6 +43,7 @@ class Magic extends Component {
 		this.louvor1()
 		this.louvor2()
 		this.posMensagem()
+		this.ceia()
 		this.ofertorio()
 		this.louvor()
 	}
@@ -76,6 +78,11 @@ class Magic extends Component {
 		this.setState({ posMensagem: response.data })
 	}
 
+	ceia = async () => {
+		const response = await api.get('posMensagem', { params: {id:this.getIds()} })
+		this.setState({ ceia: response.data })
+	}
+
 	ofertorio = async () => {
 		const response = await api.get('ofertorio', { params: {id:this.getIds()} })
 		this.setState({ ofertorio: response.data })
@@ -88,6 +95,7 @@ class Magic extends Component {
 			louvor1: this.state.louvor1,
 			louvor2: this.state.louvor2,
 			posMensagem: this.state.posMensagem,
+			ceia: this.state.ceia,
 			ofertorio: this.state.ofertorio,
 		})
 		this.getIds()
@@ -100,6 +108,7 @@ class Magic extends Component {
 			this.state.louvor1._id,
 			this.state.louvor2._id,
 			this.state.posMensagem._id,
+			this.state.ceia._id,
 			this.state.ofertorio._id,
 		];
 		this.setState({ _ids: IDs})
@@ -150,6 +159,10 @@ class Magic extends Component {
 					<Text style={styles.h1}>{this.state.posMensagem.name}</Text>
 					<Text style={styles.h2}>{this.state.posMensagem.artist} - {this.state.posMensagem.key}</Text>
 				</TouchableOpacity>
+				<TouchableOpacity style={styles.musicContainer} onPress={() => this.ceia()}>
+					<Text style={styles.h1}>{this.state.ceia.name}</Text>
+					<Text style={styles.h2}>{this.state.ceia.artist} - {this.state.ceia.key}</Text>
+				</TouchableOpacity>
 				<TouchableOpacity style={styles.musicContainer} onPress={() => this.ofertorio()}>
 					<Text style={styles.h1}>{this.state.ofertorio.name}</Text>
 					<Text style={styles.h2}>{this.state.ofertorio.artist} - {this.state.ofertorio.key}</Text>
@@ -166,16 +179,16 @@ const styles = StyleSheet.create({
 		justifyContent: 'center'
 	},
 	h1: {
-		fontSize: 25,
+		fontSize: 22.5,
 		fontWeight: '400',
 	},
 	h2: {
-		fontSize: 12,
+		fontSize: 10.8,
 		color: '#777',
-		marginBottom: 10,
+		marginBottom: 9,
 	},
 	musicContainer: {
-		marginVertical: 17.1,
+		marginVertical: 13.3,
 		flex: 1,
 		flexDirection: 'column',
 		alignItems: 'center'

@@ -38,6 +38,7 @@ class DetailList extends Component {
 		louvor1: this.props.navigation.state.params.list.louvor1,
 		louvor2: this.props.navigation.state.params.list.louvor2,
 		posMensagem: this.props.navigation.state.params.list.posMensagem,
+		ceia: this.props.navigation.state.params.list.ceia,
 		ofertorio: this.props.navigation.state.params.list.ofertorio,
 		_ids: '',
 		save: false,
@@ -85,6 +86,7 @@ class DetailList extends Component {
 			this.state.louvor1._id,
 			this.state.louvor2._id,
 			this.state.posMensagem._id,
+			this.state.ceia._id,
 			this.state.ofertorio._id,
 		];
 		this.setState({ _ids: IDs})
@@ -121,6 +123,11 @@ class DetailList extends Component {
 		this.setState({ posMensagem: response.data, save: true })
 	}
 
+	ceia = async () => {
+		const response = await api.get('posMensagem', { params: {id:this.getIds()} })
+		this.setState({ ceia: response.data, save: true })
+	}
+
 	ofertorio = async () => {
 		const response = await api.get('ofertorio', { params: {id:this.getIds()} })
 		this.setState({ ofertorio: response.data, save: true })
@@ -150,6 +157,15 @@ class DetailList extends Component {
 				<Text style={styles.h1}>{this.state.posMensagem.name}</Text>
 				<Text style={styles.h2}>{this.state.posMensagem.artist} - {this.state.posMensagem.key}</Text>
 			</TouchableOpacity>
+			{
+				this.state.ceia ?
+					<TouchableOpacity style={styles.musicContainer}>
+						<Text style={styles.h1}>{this.state.ceia.name}</Text>
+						<Text style={styles.h2}>{this.state.ceia.artist} - {this.state.ceia.key}</Text>
+					</TouchableOpacity>
+				:
+					false
+			}
 			<TouchableOpacity style={styles.musicContainer}>
 				<Text style={styles.h1}>{this.state.ofertorio.name}</Text>
 				<Text style={styles.h2}>{this.state.ofertorio.artist} - {this.state.ofertorio.key}</Text>
@@ -181,6 +197,15 @@ class DetailList extends Component {
 					<Text style={styles.h1}>{this.state.posMensagem.name}</Text>
 					<Text style={styles.h2}>{this.state.posMensagem.artist} - {this.state.posMensagem.key}</Text>
 				</TouchableOpacity>
+				{
+					this.state.ceia ?
+						<TouchableOpacity style={styles.musicContainer} onPress={() => this.ceia()}>
+							<Text style={styles.h1}>{this.state.ceia.name}</Text>
+							<Text style={styles.h2}>{this.state.ceia.artist} - {this.state.ceia.key}</Text>
+						</TouchableOpacity>
+					:
+						false
+				}
 				<TouchableOpacity style={styles.musicContainer} onPress={() => this.ofertorio()}>
 					<Text style={styles.h1}>{this.state.ofertorio.name}</Text>
 					<Text style={styles.h2}>{this.state.ofertorio.artist} - {this.state.ofertorio.key}</Text>

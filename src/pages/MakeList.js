@@ -27,6 +27,7 @@ class MakeList extends Component {
 		louvor1: '',
 		louvor2: '',
 		posMensagem: '',
+		ceia: '',
 		ofertorio: '',
 	}
 
@@ -52,6 +53,7 @@ class MakeList extends Component {
 			louvor1: list.louvor1,
 			louvor2: list.louvor2,
 			posMensagem: list.posMensagem,
+			ceia: list.ceia,
 			ofertorio: list.ofertorio,
 		})
 	}

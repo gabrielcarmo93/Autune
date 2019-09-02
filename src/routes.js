@@ -12,6 +12,7 @@ import DetailListPage from './pages/DetailList'
 import ListPage from './pages/List'
 import MakeListPage from './pages/MakeList'
 import MagicPage from './pages/Magic'
+import DrinkingMagicPage from './pages/DrinkingMagic'
 import SongsPage from './pages/Songs'
 import TestPage from './pages/Test'
 
@@ -25,6 +26,9 @@ const HomeGroup = createStackNavigator({
 	},
 	Magic: {
 		screen: MagicPage,
+	},
+	DrinkingMagic: {
+		screen: DrinkingMagicPage,
 	},
 	MakeList: {
 		screen: MakeListPage,

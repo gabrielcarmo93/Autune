@@ -83,7 +83,7 @@ class Lists extends Component {
 							<View style={styles.innerView}>
 								<Text style={styles.h1}>{moment(item.date).format('DD/MM/YYYY')}</Text>
 								<Text style={styles.h2} numberOfLines={1} ellipsizeMode='middle'>
-									Início: {item.inicio.name} / Louvor: {item.louvor0.name}, {item.louvor1.name}, {item.louvor2.name} / Pós Mensagem: {item.posMensagem.name} / Ofertório: {item.ofertorio.name}
+									Início: {item.inicio.name} / Louvor: {item.louvor0.name}, {item.louvor1.name}, {item.louvor2.name} / Pós Mensagem: {item.posMensagem.name} / {item.ceia ? `Ceia: ${item.ceia.name}` : false } Ofertório: {item.ofertorio.name}
 								</Text>
 							</View>
 						</TouchableOpacity>
