@@ -5,7 +5,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import api from '../services/api'
 import moment from 'moment'
-
+import Share from 'react-native-share';
+ 
 let _this
 
 
@@ -13,14 +14,14 @@ class DetailList extends Component {
 	static navigationOptions = {
 		title: 'Lista',
 		headerRight: (
-			<View style={{ flexWrap: 'wrap' }}>
+			<View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap' }}>
 				<TouchableOpacity onPress={() => _this.saveList()}>
 					<MaterialIcons
 						name='save'
 						style={{fontSize: 30, color: '#777', marginHorizontal: 10}}
 					/>
 				</TouchableOpacity>
-				<TouchableOpacity onPress={() => _this.shareList()} style={{display: 'none'}}>
+				<TouchableOpacity onPress={() => _this.shareList()}>
 					<Ionicons
 						name='md-share'
 						style={{fontSize: 30, color: '#777', marginHorizontal: 10}}
@@ -76,7 +77,13 @@ class DetailList extends Component {
 	}
 
 	shareList = async () => {
-		
+		// Linking.openURL('whatsapp://send?text=hello');
+		/*const shareOptions = {
+			title: 'Share via',
+			message: 'some message',
+			url: 'some share url',
+		};
+		Share.shareSingle(shareOptions);*/
 	}
 
 	getIds (){

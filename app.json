@@ -1,33 +1,35 @@
 {
-	"expo": {
-		"name": "Autune",
-		"slug": "Autune",
-		"privacy": "public",
-		"sdkVersion": "33.0.0",
-		"platforms": [
-			"ios",
-			"android",
-			"web"
-		],
-		"version": "1.0.0",
-		"orientation": "portrait",
-		"icon": "./assets/icon.png",
-		"splash": {
-			"image": "./assets/logo.png",
-			"resizeMode": "contain",
-			"backgroundColor": "#ffffff"
-		},
-		"updates": {
-			"fallbackToCacheTimeout": 0
-		},
-			"assetBundlePatterns": [
-			"**/*"
-		],
-		"ios": {
-			"supportsTablet": false
-		},
-		"android": {
-			"package": "com.ghumble.autune"
-		}
-	}
+  "expo": {
+    "name": "Autune",
+    "slug": "Autune",
+    "privacy": "public",
+    "sdkVersion": "33.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/logo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": false
+    },
+    "android": {
+      "package": "com.ghumble.autune"
+    },
+    "description": "Auxilia na escolha de músicas para tocar na igreja",
+    "githubUrl": "https://github.com/gabrielcarmo93/Autune.git"
+  }
 }

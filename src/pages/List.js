@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { StyleSheet, View, Text, SafeAreaView, StatusBar, TouchableOpacity, FlatList, List, RefreshControl, Alert } from 'react-native'
 import api from '../services/api'
 import moment from 'moment'
-import { getStatusBarHeight } from 'react-native-status-bar-height'
+import Constants from 'expo-constants';
+// import { getStatusBarHeight } from 'react-native-status-bar-height'
 import { withNavigationFocus } from 'react-navigation'
 
 let _this;
@@ -102,7 +103,7 @@ class Lists extends Component {
 
 const styles = StyleSheet.create({
 	container: {
-		marginTop: (getStatusBarHeight() * .7),
+		paddingTop: Constants.statusBarHeight,
 		justifyContent: 'center',
 	},
 	magicButton: {
