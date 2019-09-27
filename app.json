@@ -11,7 +11,7 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/mic.png",
+    "icon": "./assets/micblack.png",
     "splash": {
       "image": "./assets/logo.png",
       "resizeMode": "contain",
@@ -28,6 +28,9 @@
     },
     "android": {
       "package": "com.ghumble.autune"
-    }
-  }
+    },
+    "entryPoint": "node_modules/expo/AppEntry.js"
+  },
+  "displayName": "Autune",
+  "name": "autune"
 }
