@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Modal, StyleSheet, View, ScrollView, FlatList, Text, TouchableOpacity, Button } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import api from '../services/api'
-import { Swiper, Slide, MyPrevButton, MyNextButton } from 'react-dynamic-swiper'
+// import { Swiper, Slide, MyPrevButton, MyNextButton } from 'react-dynamic-swiper'
 /*import 'react-dynamic-swiper/lib/styles.css'
 import LeftArrowButton from '../components/LeftArrowButton'
 import RightArrowButton from '../components/RightArrowButton'*/

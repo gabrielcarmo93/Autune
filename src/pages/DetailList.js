@@ -1,14 +1,12 @@
 import React, { Component } from 'react'
-import { Modal, StyleSheet, View, ScrollView, FlatList, Text, TouchableOpacity, ToastAndroid } from 'react-native'
+import { Modal, StyleSheet, View, ScrollView, FlatList, Text, TouchableOpacity, ToastAndroid, PixelRatio, Share } from 'react-native'
 import { createAppContainer, createStackNavigator } from 'react-navigation'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import api from '../services/api'
 import moment from 'moment'
-import Share from 'react-native-share';
  
 let _this
-
 
 class DetailList extends Component {
 	static navigationOptions = {
@@ -77,25 +75,27 @@ class DetailList extends Component {
 	}
 
 	shareList = async () => {
-		// Linking.openURL('whatsapp://send?text=hello');
-		/*const shareOptions = {
-			title: 'Share via',
-			message: 'some message',
-			url: 'some share url',
-		};
-		Share.shareSingle(shareOptions);*/
+		
 	}
 
 	getIds (){
-		let IDs = [
+		let IDs = []
+		IDs.push(
 			this.state.inicio._id,
 			this.state.louvor0._id,
 			this.state.louvor1._id,
 			this.state.louvor2._id,
 			this.state.posMensagem._id,
-			this.state.ceia._id,
-			this.state.ofertorio._id,
-		];
+			this.state.ofertorio._id
+		)
+
+		this.state.ceia ?
+			IDs.push(
+				this.state.ceia._id
+			)
+		:
+			false
+		
 		this.setState({ _ids: IDs})
 		return IDs
 	}
@@ -141,47 +141,7 @@ class DetailList extends Component {
 	}
 
 	component = (
-		<View style={styles.container}>
-			<TouchableOpacity style={styles.musicContainer}>
-				<Text style={styles.h1}>{this.state.inicio.name}</Text>
-				<Text style={styles.h2}>{this.state.inicio.artist} - {this.state.inicio.key}</Text>
-			</TouchableOpacity>
-			<View style={styles.musicContainer,{marginVertical: 19}}>
-				<TouchableOpacity style={styles.innerButtonMusic}>
-					<Text style={styles.h1}>{this.state.louvor0.name}</Text>
-					<Text style={styles.h2}>{this.state.louvor0.artist} - {this.state.louvor0.key}</Text>
-				</TouchableOpacity>
-				<TouchableOpacity style={styles.innerButtonMusic}>
-					<Text style={styles.h1}>{this.state.louvor1.name}</Text>
-					<Text style={styles.h2}>{this.state.louvor1.artist} - {this.state.louvor1.key}</Text>
-				</TouchableOpacity>
-				<TouchableOpacity style={styles.innerButtonMusic}>
-					<Text style={styles.h1}>{this.state.louvor2.name}</Text>
-					<Text style={styles.h2}>{this.state.louvor2.artist} - {this.state.louvor2.key}</Text>
-				</TouchableOpacity>
-			</View>
-			<TouchableOpacity style={styles.musicContainer}>
-				<Text style={styles.h1}>{this.state.posMensagem.name}</Text>
-				<Text style={styles.h2}>{this.state.posMensagem.artist} - {this.state.posMensagem.key}</Text>
-			</TouchableOpacity>
-			{
-				this.state.ceia ?
-					<TouchableOpacity style={styles.musicContainer}>
-						<Text style={styles.h1}>{this.state.ceia.name}</Text>
-						<Text style={styles.h2}>{this.state.ceia.artist} - {this.state.ceia.key}</Text>
-					</TouchableOpacity>
-				:
-					false
-			}
-			<TouchableOpacity style={styles.musicContainer}>
-				<Text style={styles.h1}>{this.state.ofertorio.name}</Text>
-				<Text style={styles.h2}>{this.state.ofertorio.artist} - {this.state.ofertorio.key}</Text>
-			</TouchableOpacity>
-		</View>
-	)
-	render() {
-		return (
-			<View style={styles.container}>
+		<View style={styles.container} >
 				<TouchableOpacity style={styles.musicContainer} onPress={() => this.inicio()}>
 					<Text style={styles.h1}>{this.state.inicio.name}</Text>
 					<Text style={styles.h2}>{this.state.inicio.artist} - {this.state.inicio.key}</Text>
@@ -218,15 +178,94 @@ class DetailList extends Component {
 					<Text style={styles.h2}>{this.state.ofertorio.artist} - {this.state.ofertorio.key}</Text>
 				</TouchableOpacity>
 			</View>
+	)
+	render() {
+		return (
+			<>
+				<View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff'}}>
+					<Text style={styles.smallHeader} >{this.state.date}</Text>
+
+					{
+						this.state.ceia ?
+							(
+								<>
+									<TouchableOpacity style={styles.cMusicContainer} onPress={() => this.inicio()}>
+										<Text style={styles.ch1}>{this.state.inicio.name}</Text>
+										<Text style={styles.ch2}>{this.state.inicio.artist} - {this.state.inicio.key}</Text>
+									</TouchableOpacity>
+									<View style={styles.cMusicContainer,{marginVertical: 15.2}}>
+										<TouchableOpacity style={styles.innerButtonMusic} onPress={() => this.louvor0() }>
+											<Text style={styles.ch1}>{this.state.louvor0.name}</Text>
+											<Text style={styles.ch2}>{this.state.louvor0.artist} - {this.state.louvor0.key}</Text>
+										</TouchableOpacity>
+										<TouchableOpacity style={styles.innerButtonMusic} onPress={() => this.louvor1() }>
+											<Text style={styles.ch1}>{this.state.louvor1.name}</Text>
+											<Text style={styles.ch2}>{this.state.louvor1.artist} - {this.state.louvor1.key}</Text>
+										</TouchableOpacity>
+										<TouchableOpacity style={styles.innerButtonMusic} onPress={() => this.louvor2() }>
+											<Text style={styles.ch1}>{this.state.louvor2.name}</Text>
+											<Text style={styles.ch2}>{this.state.louvor2.artist} - {this.state.louvor2.key}</Text>
+										</TouchableOpacity>
+									</View>
+									<TouchableOpacity style={styles.cMusicContainer} onPress={() => this.posMensagem()}>
+										<Text style={styles.ch1}>{this.state.posMensagem.name}</Text>
+										<Text style={styles.ch2}>{this.state.posMensagem.artist} - {this.state.posMensagem.key}</Text>
+									</TouchableOpacity>
+									<TouchableOpacity style={styles.cMusicContainer} onPress={() => this.ceia()}>
+										<Text style={styles.ch1}>{this.state.ceia.name}</Text>
+										<Text style={styles.h2}>{this.state.ceia.artist} - {this.state.ceia.key}</Text>
+									</TouchableOpacity>
+									<TouchableOpacity style={styles.cMusicContainer} onPress={() => this.ofertorio()}>
+										<Text style={styles.ch1}>{this.state.ofertorio.name}</Text>
+										<Text style={styles.ch2}>{this.state.ofertorio.artist} - {this.state.ofertorio.key}</Text>
+									</TouchableOpacity>
+								</>
+							)
+						:
+							(
+								<>
+									<TouchableOpacity style={styles.musicContainer} onPress={() => this.inicio()}>
+										<Text style={styles.h1}>{this.state.inicio.name}</Text>
+										<Text style={styles.h2}>{this.state.inicio.artist} - {this.state.inicio.key}</Text>
+									</TouchableOpacity>
+									<View style={styles.musicContainer,{marginVertical: 19}}>
+										<TouchableOpacity style={styles.innerButtonMusic} onPress={() => this.louvor0() }>
+											<Text style={styles.h1}>{this.state.louvor0.name}</Text>
+											<Text style={styles.h2}>{this.state.louvor0.artist} - {this.state.louvor0.key}</Text>
+										</TouchableOpacity>
+										<TouchableOpacity style={styles.innerButtonMusic} onPress={() => this.louvor1() }>
+											<Text style={styles.h1}>{this.state.louvor1.name}</Text>
+											<Text style={styles.h2}>{this.state.louvor1.artist} - {this.state.louvor1.key}</Text>
+										</TouchableOpacity>
+										<TouchableOpacity style={styles.innerButtonMusic} onPress={() => this.louvor2() }>
+											<Text style={styles.h1}>{this.state.louvor2.name}</Text>
+											<Text style={styles.h2}>{this.state.louvor2.artist} - {this.state.louvor2.key}</Text>
+										</TouchableOpacity>
+									</View>
+									<TouchableOpacity style={styles.musicContainer} onPress={() => this.posMensagem()}>
+										<Text style={styles.h1}>{this.state.posMensagem.name}</Text>
+										<Text style={styles.h2}>{this.state.posMensagem.artist} - {this.state.posMensagem.key}</Text>
+									</TouchableOpacity>
+									<TouchableOpacity style={styles.musicContainer} onPress={() => this.ofertorio()}>
+										<Text style={styles.h1}>{this.state.ofertorio.name}</Text>
+										<Text style={styles.h2}>{this.state.ofertorio.artist} - {this.state.ofertorio.key}</Text>
+									</TouchableOpacity>
+								</>
+							)
+					}
+
+
+
+				</View>
+			</>
 		)
 	}
 }
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
-		alignItems: 'center',
-		justifyContent: 'center'
+		
+		backgroundColor: '#fff',
 	},
 	h1: {
 		fontSize: 25,
@@ -239,12 +278,31 @@ const styles = StyleSheet.create({
 	},
 	musicContainer: {
 		marginVertical: 19,
-		flex: 1,
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center'
+	},
+	ch1: {
+		fontSize: 25,
+		fontWeight: '400',
+	},
+	ch2: {
+		fontSize: 12,
+		color: '#777',
+		marginBottom: 8,
+	},
+	cMusicContainer: {
+		marginVertical: 15.2,
+		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'center'
 	},
 	innerButtonMusic: {
 		alignItems: 'center'
+	},
+	smallHeader: {
+		fontSize: 10,
+		letterSpacing: 1
 	}
 })
 

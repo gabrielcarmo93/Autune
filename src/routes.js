@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { View } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import { createBottomTabNavigator, createAppContainer, createStackNavigator, StackNavigator } from 'react-navigation'
-import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
+import { createBottomTabNavigator, createAppContainer, StackNavigator } from 'react-navigation'
+import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs'
+import { createStackNavigator } from 'react-navigation-stack'
 import moment from 'moment'
 
 import HomePage from './pages/Home'
@@ -77,7 +78,7 @@ const SongGroup = createStackNavigator({
 		screen: TestPage
 	}
 },{
-	initalRouteName: 'DetailSong'
+	initalRouteName: 'Songs'
 })
 
 export default createAppContainer(

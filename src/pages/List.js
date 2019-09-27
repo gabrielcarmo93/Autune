@@ -103,7 +103,6 @@ class Lists extends Component {
 
 const styles = StyleSheet.create({
 	container: {
-		paddingTop: Constants.statusBarHeight,
 		justifyContent: 'center',
 	},
 	magicButton: {

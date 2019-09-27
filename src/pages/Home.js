@@ -7,10 +7,6 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 class Home extends Component {
 
-	componentDidMount() {
-		// StatusBar.setHidden(true);
-	}
-
 	doDrinkingTheMagic = () => {
 
 	}
