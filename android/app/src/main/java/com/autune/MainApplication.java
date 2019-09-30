@@ -3,6 +3,7 @@ package com.autune;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.airbnb.android.react.lottie.LottiePackage;
 import cl.json.RNSharePackage;
 import cl.json.ShareApplication;
 import fr.greweb.reactnativeviewshot.RNViewShotPackage;
@@ -43,6 +44,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new LottiePackage(),
             new RNSharePackage(),
             new RNViewShotPackage(),
           new ReanimatedPackage(),

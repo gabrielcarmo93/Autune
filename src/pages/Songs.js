@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, SafeAreaView, StatusBar, TouchableOpacity, FlatList, List, RefreshControl, Alert } from 'react-native'
+import { StyleSheet, View, Text, SafeAreaView, StatusBar, TouchableOpacity, FlatList, List, RefreshControl, Alert, ActivityIndicator } from 'react-native'
 import { createAppContainer, createStackNavigator } from 'react-navigation'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import api from '../services/api'
@@ -21,7 +21,7 @@ class Songs extends Component {
 	state = {
 		musicas: [],
 		refreshing: false,
-		loading: false,
+		loading: true,
 	}
 
 	componentDidMount() {
@@ -34,13 +34,13 @@ class Songs extends Component {
 	}
 
 	loadData = async () => {
-		// this.registerToSocket()
+		this.setState({ loading: true })
 		const response = await api.get('musics')
-		this.setState({ musicas: response.data, refreshing: false })
+		this.setState({ musicas: response.data, refreshing: false, loading: false })
 	}
 
 	handleRefresh = () => {
-		this.setState({ refreshing: true }, () => {
+		this.setState({ refreshing: true, loading: true }, () => {
 			this.loadData()
 		})
 	}
@@ -79,57 +79,63 @@ class Songs extends Component {
 
 	render() {
 		return (
-			<View style={styles.container}>
-				<FlatList
-					data={this.state.musicas}
-					keyExtractor={musicas => musicas._id}
-					renderItem={({ item }) => (
-						<TouchableOpacity style={styles.musicList} onPress={() => this.detailsSong( item ) } onLongPress={() => this.longPressDelete(item._id, item.name)}>
-							<View style={styles.innerView}>
-								<Text style={styles.h1}>{item.name}</Text>
-								<Text style={styles.h2}>{item.artist}</Text>
-								<View style={styles.spcbtw}>
-									<Text style={styles.h2}>{(() => {
-	                					switch(item.theme) {
-	                						case '1':
-	                							return 'Início'
-	                							break
-	                						case '2':
-	                							return 'Início / Louvor'
-	                							break
-	                						case '3':
-	                							return 'Louvor'
-	                							break
-	                						case '4':
-	                							return 'Louvor / Pós Mensagem'
-	                							break
-	                						case '5':
-	                							return 'Pós Mensagem'
-	                							break
-	                						case '6':
-	                							return 'Louvor / Ofertório'
-	                							break
-	                						case '7':
-	                							return 'Ofertório'
-	                							break
-	            							default:
-	            								return 'Sem tema'
-	                					}
-	            					})()}
-	        						</Text>
-									<Text style={styles.h2}>{item.key}</Text>
+			<>
+				<View style={this.state.loading ? {} : {display:'none'} }>
+					<ActivityIndicator size="large" color="#0000ff" />
+				</View>
+
+				<View style={styles.container, this.state.loading ? {display:'none'} : {} }>
+					<FlatList
+						data={this.state.musicas}
+						keyExtractor={musicas => musicas._id}
+						renderItem=	{({ item }) => (
+							<TouchableOpacity style={styles.musicList} onPress={() => this.detailsSong( item ) } onLongPress={() => this.longPressDelete(item._id, item.name)}>
+								<View style={styles.innerView}>
+									<Text style={styles.h1}>{item.name}</Text>
+									<Text style={styles.h2}>{item.artist}</Text>
+									<View style={styles.spcbtw}>
+										<Text style={styles.h2}>{(() => {
+		                					switch(item.theme) {
+		                						case '1':
+		                							return 'Início'
+		                							break
+		                						case '2':
+		                							return 'Início / Louvor'
+		                							break
+		                						case '3':
+		                							return 'Louvor'
+		                							break
+		                						case '4':
+		                							return 'Louvor / Pós Mensagem'
+		                							break
+		                						case '5':
+		                							return 'Pós Mensagem'
+		                							break
+		                						case '6':
+		                							return 'Louvor / Ofertório'
+		                							break
+		                						case '7':
+		                							return 'Ofertório'
+		                							break
+		            							default:
+		            								return 'Sem tema'
+		                					}
+		            					})()}
+		        						</Text>
+										<Text style={styles.h2}>{item.key}</Text>
+									</View>
 								</View>
-							</View>
-						</TouchableOpacity>
-					)}
-					refreshControl={
-						<RefreshControl
-							refreshing={this.state.refreshing}
-							onRefresh={this.handleRefresh}
-						/>
-					}
-				/>
-			</View>
+							</TouchableOpacity>
+						)}
+						refreshControl={
+							<RefreshControl
+								refreshing={this.state.refreshing}
+								onRefresh={this.handleRefresh}
+							/>
+						}
+					/>
+				</View>
+			</>
 		)
 	}
 }

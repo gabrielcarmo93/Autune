@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, SafeAreaView, StatusBar, TouchableOpacity, FlatList, List, RefreshControl, Alert } from 'react-native'
+import { StyleSheet, View, Text, SafeAreaView, StatusBar, TouchableOpacity, FlatList, List, RefreshControl, Alert, ActivityIndicator } from 'react-native'
 import api from '../services/api'
 import moment from 'moment'
 import Constants from 'expo-constants';
-// import { getStatusBarHeight } from 'react-native-status-bar-height'
+import LottieView from 'lottie-react-native'
 import { withNavigationFocus } from 'react-navigation'
 
 let _this;
@@ -16,7 +16,7 @@ class Lists extends Component {
 	state = {
 		lists: [],
 		refreshing: false,
-		loading: false,
+		loading: true,
 	}
 
 	componentDidMount() {
@@ -32,11 +32,11 @@ class Lists extends Component {
 	loadData = async () => {
 		// this.registerToSocket()
 		const response = await api.get('lists')
-		this.setState({ lists: response.data, refreshing: false })
+		this.setState({ lists: response.data, refreshing: false, loading: false })
 	}
 
 	handleRefresh = () => {
-		this.setState({ refreshing: true }, () => {
+		this.setState({ refreshing: true, loading: true }, () => {
 			this.loadData()
 		})
 	}
@@ -75,28 +75,33 @@ class Lists extends Component {
 
 	render() {
 		return (
-			<View style={styles.container}>
-				<FlatList
-					data={this.state.lists}
-					keyExtractor={lists => lists._id}
-					renderItem={({ item }) => (
-						<TouchableOpacity style={styles.lists} onPress={() => this.detailsList(item) } onLongPress={() => this.longPressDelete(item._id, item.date)}>
-							<View style={styles.innerView}>
-								<Text style={styles.h1}>{moment(item.date).format('DD/MM/YYYY')}</Text>
-								<Text style={styles.h2} numberOfLines={1} ellipsizeMode='middle'>
-									Início: {item.inicio.name} / Louvor: {item.louvor0.name}, {item.louvor1.name}, {item.louvor2.name} / Pós Mensagem: {item.posMensagem.name} / {item.ceia ? `Ceia: ${item.ceia.name}` : false } Ofertório: {item.ofertorio.name}
-								</Text>
-							</View>
-						</TouchableOpacity>
-					)}
-					refreshControl={
-						<RefreshControl
-							refreshing={this.state.refreshing}
-							onRefresh={this.handleRefresh}
-						/>
-					}
-				/>
-			</View>
+			<>
+				<View style={styles.container, this.state.loading ? false : {display:'none'} }>
+					<ActivityIndicator size="large" color="#0000ff" />
+				</View>
+				<View style={styles.container, this.state.loading ? {display:'none'} : false }>
+					<FlatList
+						data={this.state.lists}
+						keyExtractor={lists => lists._id}
+						renderItem={({ item }) => (
+							<TouchableOpacity style={styles.lists} onPress={() => this.detailsList(item) } onLongPress={() => this.longPressDelete(item._id, item.date)}>
+								<View style={styles.innerView}>
+									<Text style={styles.h1}>{moment(item.date).format('DD/MM/YYYY')}</Text>
+									<Text style={styles.h2} numberOfLines={1} ellipsizeMode='middle'>
+										Início: {item.inicio.name} / Louvor: {item.louvor0.name}, {item.louvor1.name}, {item.louvor2.name} / Pós Mensagem: {item.posMensagem.name} / {item.ceia ? `Ceia: ${item.ceia.name}` : false } Ofertório: {item.ofertorio.name}
+									</Text>
+								</View>
+							</TouchableOpacity>
+						)}
+						refreshControl={
+							<RefreshControl
+								refreshing={this.state.refreshing}
+								onRefresh={this.handleRefresh}
+							/>
+						}
+					/>
+				</View>
+			</>
 		)
 	}
 }

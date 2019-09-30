@@ -9,9 +9,9 @@
       "android",
       "web"
     ],
-    "version": "1.0.0",
+    "version": "1.1.0",
     "orientation": "portrait",
-    "icon": "./assets/micblack.png",
+    "icon": "./assets/synthesizer.png",
     "splash": {
       "image": "./assets/logo.png",
       "resizeMode": "contain",
